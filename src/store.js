@@ -14,7 +14,7 @@ const useStore = create(
       showBackground: true,
       language: "plaintext",
       autoDetectLanguage: false,
-      fontSize: 18,
+      fontSize: 16,
       fontStyle: "jetBrainsMono",
       padding: 64,
     }),

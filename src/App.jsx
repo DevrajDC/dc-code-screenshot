@@ -16,7 +16,6 @@ import { Resizable } from "re-resizable";
 import { Button } from "./components/ui/button";
 import { ResetIcon } from "@radix-ui/react-icons";
 import WidthMeasurement from "./components/WidthMeasurement";
-import { toast } from "react-hot-toast";
 
 function App() {
   const [width, setWidth] = useState("auto");
