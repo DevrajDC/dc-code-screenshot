@@ -1,4 +1,5 @@
 import { cn } from "@/lib/utils";
+import flourite from "flourite";
 import { codeSnippets, fonts } from "@/options";
 import useStore from "@/store";
 import hljs from "highlight.js";
@@ -14,6 +15,17 @@ export default function CodeEditor() {
       codeSnippets[Math.floor(Math.random() * codeSnippets.length)];
     useStore.setState(randomSnippet);
   }, []);
+
+  // Auto Detect Language
+  useEffect(() => {
+    if (store.autoDetectLanguage) {
+      // use flourite to detect language and provide highlighting
+      const { language } = flourite(store.code, { noUnknown: true });
+      useStore.setState({
+        language: language.toLowerCase() || "plaintext",
+      });
+    }
+  }, [store.autoDetectLanguage, store.code]);
 
   return (
     <div
