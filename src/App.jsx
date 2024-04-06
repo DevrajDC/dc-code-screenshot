@@ -1,11 +1,17 @@
-import { useRef } from "react";
-import CodeEditor from "./components/CodeEditor";
+import { useEffect, useRef } from "react";
 import { themes, fonts } from "./options";
-import { cn } from "./lib/utils";
 import useStore from "./store";
-import { Card } from "./components/ui/card";
-import { Button } from "./components/ui/button";
+import { cn } from "./lib/utils";
+import CodeEditor from "./components/CodeEditor";
+import { Card, CardContent } from "./components/ui/card";
 import ExportOptions from "./components/controls/ExportOptions";
+import ThemeSelect from "./components/controls/ThemeSelect";
+import LanguageSelect from "./components/controls/LanguageSelect";
+import FontSelect from "./components/controls/FontSelect";
+import FontSizeInput from "./components/controls/FontSizeInput";
+import PaddingSlider from "./components/controls/PaddingSlider";
+import BackgroundSwitch from "./components/controls/BackgroundSwitch";
+import DarkModeSwitch from "./components/controls/DarkModeSwitch";
 
 function App() {
   const theme = useStore((state) => state.theme);
@@ -14,6 +20,21 @@ function App() {
   const showBackground = useStore((state) => state.showBackground);
 
   const editorRef = useRef(null);
+
+  useEffect(() => {
+    const queryParams = new URLSearchParams(location.search);
+    if (queryParams.size === 0) return;
+    const state = Object.fromEntries(queryParams);
+
+    useStore.setState({
+      ...state,
+      code: state.code ? atob(state.code) : "",
+      autoDetectLanguage: state.autoDetectLanguage === "true",
+      darkMode: state.darkMode === "true",
+      fontSize: Number(state.fontSize || 18),
+      padding: Number(state.padding || 64),
+    });
+  }, []);
 
   return (
     <main className="dark min-h-screen flex justify-center items-center bg-neutral-950 text-white">
@@ -38,8 +59,17 @@ function App() {
         <CodeEditor />
       </div>
 
-      <Card className="fixed bottom-16 py-16 px-8 mx-6 bg-neutral-900/90 backdrop-blur">
-        <ExportOptions targetRef={editorRef} />
+      <Card className="fixed bottom-8 py-16 px-8 mx-6 bg-neutral-900/90 backdrop-blur">
+        <CardContent className="flex flex-wrap gap-6 p-0">
+          <ThemeSelect />
+          <LanguageSelect />
+          <FontSelect />
+          <FontSizeInput />
+          <PaddingSlider />
+          <BackgroundSwitch />
+          <DarkModeSwitch />
+          <ExportOptions targetRef={editorRef} />
+        </CardContent>
       </Card>
     </main>
   );
