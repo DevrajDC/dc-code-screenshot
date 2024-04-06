@@ -81,7 +81,7 @@ body {
 }
 
 .toast {
-  @apply bg-neutral-900/90 backdrop-blur text-white border border-gray-800 shadow;
+  @apply bg-neutral-900/90 backdrop-blur text-sm text-white border border-gray-800 shadow;
 }
 
 ::-webkit-scrollbar {
@@ -90,9 +90,13 @@ body {
 }
 
 ::-webkit-scrollbar-track {
-  @apply bg-neutral-800;
+  @apply bg-neutral-950;
 }
 
 ::-webkit-scrollbar-thumb {
   @apply rounded-xl bg-neutral-700;
+}
+
+::-webkit-scrollbar-corner {
+  @apply bg-neutral-900;
 }

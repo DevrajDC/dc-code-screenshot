@@ -16,6 +16,7 @@ import { Resizable } from "re-resizable";
 import { Button } from "./components/ui/button";
 import { ResetIcon } from "@radix-ui/react-icons";
 import WidthMeasurement from "./components/WidthMeasurement";
+import { toast } from "react-hot-toast";
 
 function App() {
   const [width, setWidth] = useState("auto");
@@ -44,7 +45,7 @@ function App() {
   }, []);
 
   return (
-    <main className="dark min-h-screen flex flex-col gap-6 justify-center items-center bg-neutral-950 text-white p-6">
+    <main className="dark h-screen flex flex-col gap-4 justify-center items-center bg-neutral-950 text-white p-4">
       <link
         rel="stylesheet"
         href={themes[theme].theme}
@@ -60,6 +61,7 @@ function App() {
         <Resizable
           enable={{ left: true, right: true }}
           minWidth={padding * 2 + 300}
+          maxWidth="100%"
           size={{ width }}
           onResize={(e, dir, ref) => setWidth(ref.offsetWidth)}
           onResizeStart={() => setShowWidth(true)}
@@ -94,8 +96,8 @@ function App() {
         </Resizable>
       </div>
 
-      <Card className="py-6 px-8 w-full bg-neutral-900/90 backdrop-blur">
-        <CardContent className="flex flex-wrap gap-6 p-0">
+      <Card className="p-6 w-full bg-neutral-900/90 backdrop-blur">
+        <CardContent className="flex flex-wrap gap-4 sm:gap-6 p-0">
           <ThemeSelect />
           <LanguageSelect />
           <FontSelect />
