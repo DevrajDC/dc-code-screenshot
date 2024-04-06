@@ -66,6 +66,11 @@
   }
 }
 
+html,
+body {
+  @apply w-screen h-screen bg-neutral-950;
+}
+
 @layer base {
   * {
     @apply border-border;
@@ -77,4 +82,17 @@
 
 .toast {
   @apply bg-neutral-900/90 backdrop-blur text-white border border-gray-800 shadow;
+}
+
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  @apply bg-neutral-800;
+}
+
+::-webkit-scrollbar-thumb {
+  @apply rounded-xl bg-neutral-700;
 }

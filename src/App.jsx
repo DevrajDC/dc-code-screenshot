@@ -44,7 +44,7 @@ function App() {
   }, []);
 
   return (
-    <main className="dark min-h-screen flex justify-center items-center bg-neutral-950 text-white">
+    <main className="dark min-h-screen flex flex-col gap-6 justify-center items-center bg-neutral-950 text-white p-6">
       <link
         rel="stylesheet"
         href={themes[theme].theme}
@@ -56,41 +56,45 @@ function App() {
         crossOrigin="anonymous"
       />
 
-      <Resizable
-        enable={{ left: true, right: true }}
-        minWidth={padding * 2 + 300}
-        size={{ width }}
-        onResize={(e, dir, ref) => setWidth(ref.offsetWidth)}
-        onResizeStart={() => setShowWidth(true)}
-        onResizeStop={() => setShowWidth(false)}
-      >
-        <div
-          className={cn(
-            "overflow-hidden mb-2 transition-all ease-out",
-            showBackground ? themes[theme].background : "ring ring-neutral-900"
-          )}
-          style={{ padding }}
-          ref={editorRef}
+      <div className="w-full overflow-auto flex grow items-center justify-center p-4 border rounded-xl border-b-gray-900">
+        <Resizable
+          enable={{ left: true, right: true }}
+          minWidth={padding * 2 + 300}
+          size={{ width }}
+          onResize={(e, dir, ref) => setWidth(ref.offsetWidth)}
+          onResizeStart={() => setShowWidth(true)}
+          onResizeStop={() => setShowWidth(false)}
         >
-          <CodeEditor />
-        </div>
-        <WidthMeasurement showWidth={showWidth} width={width} />
-        <div
-          className={cn(
-            "transition-opacity w-fit mx-auto -mt-4",
-            showWidth || width === "auto"
-              ? "invisible opacity-0"
-              : "visible opacity-100"
-          )}
-        >
-          <Button size="sm" onClick={() => setWidth("auto")} variant="ghost">
-            <ResetIcon className="mr-2" />
-            Reset width
-          </Button>
-        </div>
-      </Resizable>
+          <div
+            className={cn(
+              "overflow-hidden mb-2 mt-8 transition-all ease-out",
+              showBackground
+                ? themes[theme].background
+                : "ring ring-neutral-900"
+            )}
+            style={{ padding }}
+            ref={editorRef}
+          >
+            <CodeEditor />
+          </div>
+          <WidthMeasurement showWidth={showWidth} width={width} />
+          <div
+            className={cn(
+              "transition-opacity w-fit mx-auto -mt-4",
+              showWidth || width === "auto"
+                ? "invisible opacity-0"
+                : "visible opacity-100"
+            )}
+          >
+            <Button size="sm" onClick={() => setWidth("auto")} variant="ghost">
+              <ResetIcon className="mr-2" />
+              Reset width
+            </Button>
+          </div>
+        </Resizable>
+      </div>
 
-      <Card className="fixed bottom-8 py-6 px-8 mx-6 bg-neutral-900/90 backdrop-blur">
+      <Card className="py-6 px-8 w-full bg-neutral-900/90 backdrop-blur">
         <CardContent className="flex flex-wrap gap-6 p-0">
           <ThemeSelect />
           <LanguageSelect />
