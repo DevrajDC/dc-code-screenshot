@@ -3,6 +3,9 @@ import CodeEditor from "./components/CodeEditor";
 import { themes, fonts } from "./options";
 import { cn } from "./lib/utils";
 import useStore from "./store";
+import { Card } from "./components/ui/card";
+import { Button } from "./components/ui/button";
+import ExportOptions from "./components/controls/ExportOptions";
 
 function App() {
   const theme = useStore((state) => state.theme);
@@ -34,6 +37,10 @@ function App() {
       >
         <CodeEditor />
       </div>
+
+      <Card className="fixed bottom-16 py-16 px-8 mx-6 bg-neutral-900/90 backdrop-blur">
+        <ExportOptions targetRef={editorRef} />
+      </Card>
     </main>
   );
 }

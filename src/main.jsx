@@ -7,6 +7,6 @@ import { Toaster } from "react-hot-toast";
 ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
     <App />
-    <Toaster />
+    <Toaster toastOptions={{ className: "toast" }} />
   </React.StrictMode>
 );
