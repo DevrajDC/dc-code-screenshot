@@ -14,7 +14,8 @@ import {
   DropdownMenuTrigger,
 } from "../ui/dropdown-menu";
 import { toast } from "react-hot-toast";
-import { toBlob } from "html-to-image";
+import { toBlob, toPng, toSvg } from "html-to-image";
+import useStore from "@/store";
 
 export default function ExportOptions({ targetRef }) {
   const copyImage = async () => {
@@ -22,8 +23,27 @@ export default function ExportOptions({ targetRef }) {
     const imgBlob = await toBlob(targetRef.current, {
       pixelRatio: 2,
     });
+
+    // Create a new ClipboardItem from the image blob
     const img = new ClipboardItem({ "image/png": imgBlob });
     navigator.clipboard.write([img]);
+  };
+
+  const copyLink = () => {
+    // Get the current state using the 'useStore' hook
+    const state = useStore.getState();
+
+    // Encode the 'code' property of the state object to base-64 encoding
+    const encodedCode = btoa(state.code);
+
+    // Create a new URLSearchParams object with state parameters, including the encoded 'code'
+    const queryParams = new URLSearchParams({
+      ...state,
+      code: encodedCode,
+    }).toString();
+
+    // Construct the URL with query parameters and copy it to the clipboard
+    navigator.clipboard.writeText(`${location.href}?${queryParams}`);
   };
 
   return (
@@ -51,7 +71,13 @@ export default function ExportOptions({ targetRef }) {
           <DropdownMenuShortcut>⌘C</DropdownMenuShortcut>
         </DropdownMenuItem>
 
-        <DropdownMenuItem className="gap-2">
+        <DropdownMenuItem
+          className="gap-2"
+          onClick={() => {
+            copyLink();
+            toast.success("Link copied to clipboard!");
+          }}
+        >
           <Link2Icon />
           Copy Link
           <DropdownMenuShortcut>⇧⌘C</DropdownMenuShortcut>
