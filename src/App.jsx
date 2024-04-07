@@ -68,7 +68,7 @@ function App() {
         >
           <div
             className={cn(
-              "overflow-hidden mb-2 mt-8 transition-all ease-out",
+              "overflow-hidden mb-2 transition-all ease-out",
               showBackground
                 ? themes[theme].background
                 : "ring ring-neutral-900"
