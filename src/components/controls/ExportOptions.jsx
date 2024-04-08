@@ -112,28 +112,13 @@ export default function ExportOptions({ targetRef }) {
       </DropdownMenuTrigger>
 
       <DropdownMenuContent className="dark">
-        <DropdownMenuItem
-          className="gap-2"
-          onClick={() =>
-            toast.promise(copyImage(), {
-              loading: "Copying...",
-              success: "Image copied to clipbard!",
-              error: "Something went wrong!",
-            })
-          }
-        >
+        <DropdownMenuItem className="gap-2" onClick={copyImage}>
           <ImageIcon />
           Copy Image
           <DropdownMenuShortcut>⌘C</DropdownMenuShortcut>
         </DropdownMenuItem>
 
-        <DropdownMenuItem
-          className="gap-2"
-          onClick={() => {
-            copyLink();
-            toast.success("Link copied to clipboard!");
-          }}
-        >
+        <DropdownMenuItem className="gap-2" onClick={copyLink}>
           <Link2Icon />
           Copy Link
           <DropdownMenuShortcut>⇧⌘C</DropdownMenuShortcut>
@@ -143,13 +128,7 @@ export default function ExportOptions({ targetRef }) {
 
         <DropdownMenuItem
           className="gap-2"
-          onClick={() =>
-            toast.promise(saveImage(title, "PNG"), {
-              loading: "Exporting PNG image...",
-              success: "Exported successfully!",
-              error: "Something went wrong!",
-            })
-          }
+          onClick={() => saveImage(title, "PNG")}
         >
           <DownloadIcon />
           Save as PNG
@@ -158,13 +137,7 @@ export default function ExportOptions({ targetRef }) {
 
         <DropdownMenuItem
           className="gap-2"
-          onClick={() =>
-            toast.promise(saveImage(title, "SVG"), {
-              loading: "Exporting SVG image...",
-              success: "Exported successfully!",
-              error: "Something went wrong!",
-            })
-          }
+          onClick={() => saveImage(title, "SVG")}
         >
           <DownloadIcon />
           Save as SVG
