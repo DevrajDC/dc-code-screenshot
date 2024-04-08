@@ -95,7 +95,7 @@ function App() {
         </Resizable>
       </div>
 
-      <Card className="p-6 w-full bg-neutral-900/90 backdrop-blur">
+      <Card className="p-6 w-fit bg-neutral-900/90 backdrop-blur">
         <CardContent className="flex flex-wrap gap-4 sm:gap-6 p-0">
           <ThemeSelect />
           <LanguageSelect />
